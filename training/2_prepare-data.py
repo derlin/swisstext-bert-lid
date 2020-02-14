@@ -108,7 +108,7 @@ def prepare_data(data_dir, gsw_filepath):
         'swe',  # Swedish
     ], 'other', num_samples)
 
-    return pd.concat(big_langs + [gsw_like, other])
+    return pd.concat([gsw, *big_langs, gsw_like, other])
 
 
 if __name__ == "__main__":
@@ -119,7 +119,7 @@ if __name__ == "__main__":
                         help='Path to a CSV file containing GSW sentences ("text" column)')
     parser.add_argument('-l', '--leipzig-dir', default='./leipzig',
                         help='Root directory of the Leipzig data. See script 0.')
-    parser.add_argument('-o', '--output', default='./data',
+    parser.add_argument('-o', '--output', default='./',
                         help='Directory where to write the output.')
     args = parser.parse_args()
 
@@ -127,12 +127,9 @@ if __name__ == "__main__":
     assert df.isna().sum().sum() == 0, 'Found some NaN values !'
     assert (df.text == '').sum() == 0, 'Found some empty text entries !'
     
-    print(f'Writing output to {args.output}...')
+    print(f'Writing output to "{args.output}"...')
     os.makedirs(args.output, exist_ok=True)
-    df.to_csv(os.path.join(args.output, 'train.csv'))
-    labels = sorted(df.label.unique())
-    with open(os.path.join(args.output, 'environ.txt'), 'w') as f:
-        f.write('export BERT_LABELS="{}"'.format(','.join(labels)))
+    df.to_csv(os.path.join(args.output, 'data.csv'))
 
     print('Done.')
     print('\nLangs\n=====\n')

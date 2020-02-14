@@ -8,15 +8,15 @@
 BASE_DIR="$PWD"
 DATA_DIR="$BASE_DIR/data" # where are data.csv and environ.txt located
 OUTPUT_DIR="$BASE_DIR/out" # where to export the model after fine-tuning
-mkdir -p $OUTPUT_DIR # create the output dir if not exist
+mkdir -p "$OUTPUT_DIR" # create the output dir if not exist
 
 # Model parameters
 BASE_MODEL='bert-base-german-cased'
 MAX_SEQ_LENGTH=64
 
 # copy and source environ.txt
-cp $DATA_DIR_BERT/environ.txt $OUTPUT_DIR 
-. $DATA_DIR/environ.txt         
+cp "$DATA_DIR/environ.txt" "$OUTPUT_DIR" 
+. "$DATA_DIR/environ.txt"         
 
 echo "Using LABELS  $BERT_LABELS"
 echo "Using WEIGHTS $BERT_LABELS_WEIGHTS"
@@ -29,7 +29,7 @@ NUM_TRAIN_EPOCHS=1.0
 export PYTHONUNBUFFERED=1
 
 # launch
-command="bert_finetune_lid \
+command="bert_run_classifier \
   --task_name "pandas" \
   --do_train \
   --data_dir $DATA_DIR \
