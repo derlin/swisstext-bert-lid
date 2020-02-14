@@ -26,6 +26,13 @@ setuptools.setup(
 
     packages=setuptools.find_packages(),
     package_data={'bert_lid': ['models/*', 'models/*/*', 'models/*/*/*']},  # include everything under models
+
+    entry_points={
+      'console_scripts': [
+        'bert_lid_install_model=bert_lid.install_model:main'
+      ]
+    },
+
     classifiers=(
         "Programming Language :: Python :: 3.6",
         "License :: Creative Commons (CC BY-NC 4.0)",

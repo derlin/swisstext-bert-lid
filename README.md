@@ -48,7 +48,7 @@ At this point, you should have a model saved in `training/out`. The only thing l
 by copying it to `bert_lid/models/default` (actual location varies depending on the kind of installation you did, install or development):
 
 ```bash
-./6_install-model.py
+bert_lid_install_model -i training/out
 ```
 
 ## Inference

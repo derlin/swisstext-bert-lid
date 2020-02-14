@@ -1,21 +1,12 @@
 #!/usr/bin/env python3
-
-"""
-This script will copy the given model directory as the default model to use with the bert_lid package.
-The actual target path will depend on the installation type (develop, install).
-"""
-
 import os
 import shutil
 
-_THIS_DIR = os.path.realpath(os.path.dirname(__file__))
-
+# model installation
 
 def install_model(model_location, model_name='default', overwrite=False):
     # get location of the bert_lid module
-    import inspect
-    from bert_lid import BertLid
-    bert_lid_location = os.path.dirname(inspect.getfile(BertLid))
+    bert_lid_location = os.path.dirname(__file__)
     print(f'Found module in {bert_lid_location}. Installing model...')
     target_dir = os.path.join(bert_lid_location, 'models', model_name)
     if os.path.exists(target_dir):
@@ -27,12 +18,12 @@ def install_model(model_location, model_name='default', overwrite=False):
     shutil.copytree(args.bert_out_dir, target_dir)
 
 
-if __name__ == '__main__':
+def main():
     import argparse
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-i', '--bert-out-dir', default=os.path.join(_THIS_DIR, 'out'),
+        '-i', '--bert-out-dir', required=True,
         help='Path to a directory containing the "bert" folder with the finetuned bert model and the environ.txt')
     parser.add_argument(
         '-o', '--model-name', default='default',
