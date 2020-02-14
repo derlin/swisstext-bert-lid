@@ -1,19 +1,5 @@
 import setuptools
 
-requirements, dependency_links = [], []
-with open("requirements.txt", "r") as f:
-    lines = [l.strip() for l in f if len(l.strip()) and not l.strip().startswith('#')]
-    for r in lines:
-        if 'git+' in r:
-            assert '#egg=' in r, f'in requirements.txt, line "{r}" is missing an #egg=package_name'
-            _, repo_path = r.split('git+')
-            link, package = repo_path.split('#egg=')
-            #requirements.append(f'{package} @ git+{repo_path}')
-            requirements.append(package)
-            dependency_links.append(f'git+{repo_path}')
-        else:
-            requirements.append(r)
-
 setuptools.setup(
     name="bert_lid",
     version="0.0.1",
@@ -38,6 +24,9 @@ setuptools.setup(
         "License :: Creative Commons (CC BY-NC 4.0)",
         "Operating System :: OS Independent",
     ),
-    install_requires=requirements,
-    dependency_links=dependency_links
+    install_requires=[
+        'pytorch_pretrained_bert_lid @ git+https://github.com/derlin/transformers.git#egg=pytorch_pretrained_bert_lid-0.6.2', 
+        'pandas', 
+        'sklearn'
+    ]
 )

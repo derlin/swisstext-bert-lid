@@ -1,3 +1,0 @@
-git+https://github.com/derlin/transformers.git#egg=pytorch_pretrained_bert_lid
-pandas
-sklearn
