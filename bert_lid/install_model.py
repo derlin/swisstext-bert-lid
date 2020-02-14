@@ -15,7 +15,7 @@ def install_model(model_location, model_name='default', overwrite=False):
         else:
             raise Exception(f'Model directory {target_dir} already exists.')
 
-    shutil.copytree(args.bert_out_dir, target_dir)
+    shutil.copytree(model_location, target_dir)
 
 
 def main():
