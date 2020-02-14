@@ -23,7 +23,7 @@ The procedure:
    (Note: if you didn't install the module in development mode, the model must be written to the location of the installed module);
 5. now, you can use `bert_lid.BertLid` and install it in other environments;
 
-## Training a model
+## Training a model
 
 <p style="background-color: #FF000055">
 **Important notice** we provide everything needed to train the model, **except the Swiss-German** data.
