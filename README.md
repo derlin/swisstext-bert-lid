@@ -16,12 +16,13 @@ Icelandic, Italian, Javanese, Konkani, Papiamento, Portuguese, Romanian, Sloveni
 
 The procedure:
 
-1. install this repo:  `pip install .` (or `pip install -e .`, for editable mode). **DO NOT USE setup.py directly**;
-2. get Swiss German sentences into a CSV file;
-3. use the scripts in `training` to generate a model (see below);
-4. set the generated model as a default in the module `bert_lid`, by copying the out directory to `bert_lid/models/default`;
+1. ensure you have a pip version >= 15.0: `pip install --upgrade pip`
+2. install this repo:  `pip install .` (or `pip install -e .`, for editable mode). **DO NOT USE setup.py directly**;
+3. get Swiss German sentences into a CSV file;
+4. use the scripts in `training` to generate a model (see below);
+5. set the generated model as a default in the module `bert_lid`, by copying the out directory to `bert_lid/models/default`;
    (Note: if you didn't install the module in development mode, the model must be written to the location of the installed module);
-5. now, you can use `bert_lid.BertLid` and install it in other environments;
+6. now, you can use `bert_lid.BertLid` and install it in other environments;
 
 ## Training a model
 
