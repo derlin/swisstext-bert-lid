@@ -31,17 +31,17 @@ class BertLid:
         # Config from training
         self.config = torch.load(os.path.join(model_dir, 'bert', 'training_args.bin'))
         self.max_seq_length = getattr(self.config, 'max_seq_length', 128)
-        logging.info('MAX_SEQ_LENGTH', self.max_seq_length)
+        logging.info(f'MAX_SEQ_LENGTH {self.max_seq_length}')
 
         # Classification labels and class weights
         self.labels, weights = [], []
         with open(os.path.join(model_dir, 'environ.txt')) as f:
             lines = [l.strip() for l in f]
             self.labels = re.search('="(.*)"', lines[0]).group(1).split(',')
+            logging.info(f'LABELS {self.labels}')
             if len(lines) > 1 and '=' in lines[1]:
                 weights = [float(x) for x in re.search('="(.*)"', lines[1]).group(1).split(',')]
-        logging.info('LABELS ', self.labels)
-        logging.info('WEIGHTS', weights)
+                logging.info(f'WEIGHTS {weight}')
 
         # BERT
         self.tokenizer = bert.BertTokenizer.from_pretrained(
@@ -99,7 +99,7 @@ class BertLid:
         probas, labels = [], []
         for out in self._predict(sentences):
             best_probas, best_idx = torch.max(out, dim=1)
-            probas += (best_probas * 100).tolist()
+            probas += best_probas.tolist()
             labels += [self.labels[x] for x in best_idx.tolist()]
 
         if mode == 'row':
@@ -120,7 +120,7 @@ class BertLid:
 
         probas = []
         for out in self._predict(sentences):
-            probas += (out[:, label_idx] * 100).tolist()
+            probas += out[:, label_idx].tolist()
         return probas
 
     def predict(self, *args, **kwargs):
